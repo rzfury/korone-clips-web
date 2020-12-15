@@ -1,0 +1,50 @@
+/* - Buttons */
+
+.btn {
+  @apply px-4 py-2 bg-gray-500 text-white ease-out duration-100;
+  transition: background-color, border-color, color; 
+}
+
+.btn:disabled {
+  @apply opacity-50 cursor-default;
+}
+
+.btn:hover:not(:disabled) {
+  @apply border-transparent bg-gray-600;
+}
+
+.btn-block {
+  @apply block w-full;
+}
+
+.btn-outline {
+  @apply border border-solid border-gray-500 bg-transparent text-gray-500;
+}
+
+.btn-outline:hover:not(:disabled) {
+  @apply text-white;
+}
+
+.btn-danger {
+  @apply bg-red-500;
+}
+
+.btn-danger.btn-outline {
+  @apply bg-transparent border-red-500 text-red-500;
+}
+
+.btn-danger:hover:not(:disabled) {
+  @apply bg-red-600;
+}
+
+.btn-primary {
+  @apply bg-blue-500;
+}
+
+.btn-primary.btn-outline {
+  @apply bg-transparent border-blue-500 text-blue-500;
+}
+
+.btn-primary:hover:not(:disabled) {
+  @apply bg-blue-600;
+}

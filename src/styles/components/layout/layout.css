@@ -1,0 +1,10 @@
+.wrapper-main {
+    width: 100%;
+    transition: margin-left cubic-bezier(.26,.09,.29,1) .5s;
+}
+
+@screen sm {
+    .wrapper-main.sidebar-open {
+        margin-left: 200px;
+    }
+}
