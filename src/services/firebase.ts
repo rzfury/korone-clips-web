@@ -28,6 +28,24 @@ class Firebase {
     this.storage = app.storage(storageUrl);
   }
 
+  public getWhere(collection: string, where?: [string, firebase.firestore.WhereFilterOp, any]) {
+    return new Promise(async (resolve, reject) => {
+      let data: any = [];
+
+      this.db.collection(collection).where(where[0], where[1], where[2]).get()
+        .then((snapshot) => {
+          snapshot.forEach(doc => {
+            data.push({
+              id: doc.id,
+              data: doc.data()
+            });
+          });
+          resolve(data);
+        })
+        .catch(reject);
+    });
+  }
+
   public get(collection: string, documentId?: string) {
     return new Promise(async (resolve, reject) => {
       let data: any = [];
