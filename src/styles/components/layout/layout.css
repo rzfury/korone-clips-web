@@ -5,6 +5,6 @@
 
 @screen sm {
     .wrapper-main.sidebar-open {
-        margin-left: 200px;
+        margin-left: 256px;
     }
 }

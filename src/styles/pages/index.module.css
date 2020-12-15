@@ -1,0 +1,37 @@
+.main {
+  @apply p-5;
+}
+
+.overlayVideo {
+  @apply fixed z-100 w-0 h-0 flex items-center justify-center overflow-hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.overlayVideo.show {
+  @apply top-0 left-0 w-screen h-screen;
+}
+
+.video {
+  box-shadow: 0px 0px 20px -5px #000000;
+  width: 100%;
+}
+
+@screen sm {
+  .main {
+    @apply px-10 py-5;
+  }
+
+  .video {
+    width: 90%;
+  }
+}
+
+@screen md {
+  .main {
+    @apply px-20 py-5;
+  }
+
+  .video {
+    width: 80%;
+  }
+}

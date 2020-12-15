@@ -1,5 +1,6 @@
 .navbar {
-  @apply flex fixed w-screen py-5 text-white bg-blue-500 shadow-md;
+  @apply flex fixed w-screen py-4 text-white shadow-md;
+  background-image: linear-gradient(135deg, rgb(177,123,111) 10%, rgb(221,167,158))!important;
 }
 
 .navbar-brand {

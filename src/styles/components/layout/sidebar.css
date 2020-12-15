@@ -1,5 +1,7 @@
 .layout-sidebar {
-  @apply fixed block bg-blue-900 h-screen shadow-lg overflow-hidden z-60;
+  @apply fixed block h-screen overflow-hidden z-60;
+  box-shadow: -4px 0px 10px 5px rgba(0,0,0,0.3);
+  background-color: rgb(221, 167, 158);
   width: 85vw;
   max-width: 0px;
   transition: max-width cubic-bezier(.26,.09,.29,1) .5s;
@@ -18,8 +20,21 @@
   @apply w-screen h-screen opacity-75;
 }
 
+.sidebar-nav-head {
+  @apply flex w-full items-center justify-center py-4 text-black shadow-md;
+  background-color: rgb(205, 150, 141);
+}
+
 .sidebar-nav > :not(:first-child) {
   @apply border-t border-blue-400
+}
+
+.sidebar-link-item {
+  @apply block px-4 py-2 text-black;
+}
+
+.sidebar-link-item:hover {
+  background-color: rgb(236, 199, 191);
 }
 
 .sidebar-dropdown {
@@ -33,10 +48,14 @@
 
 @screen sm {
   .layout-sidebar.open {
-    max-width: 200px;
+    max-width: 256px;
   }
 
   .layout-sidebar.open + .sidebar-backdrop {
     @apply w-0 h-0;
+  }
+
+  .sidebar-nav-head {
+    min-height: 72px;
   }
 }
