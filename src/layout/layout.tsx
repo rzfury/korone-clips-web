@@ -3,30 +3,11 @@ import conclass from '../utility/conclass';
 import Nav from './navbar/navbar';
 import SideBar from './sidebar/sidebar';
 
-const sidebar = false;
+const sidebar = true;
 
 export default function Layout(props: RazorWindProps.Layout) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navbarLinks: RazorWindProps.Navigation.Link[] = [
-    {
-      label: 'Home',
-      href: '/'
-    },
-    {
-      label: 'Examples',
-      href: '/examples',
-      dropdown: [
-        { href: '/button', label: 'Button' },
-        { href: '/card', label: 'Card' },
-        { href: '/form-control', label: 'Form Control' },
-        { href: '/modal', label: 'Modal' },
-      ],
-    },
-    {
-      label: 'Empty',
-      href: '/empty'
-    },
-  ];
+  const navbarLinks: RazorWindProps.Navigation.Link[] = [];
 
   const sidebarHandle = () => {
     setSidebarOpen(!sidebarOpen);
