@@ -23,7 +23,7 @@ export default function Layout(props: RazorWindProps.Layout) {
       {sidebar && <SideBar show={sidebarOpen} nav={{ brand: "" }} links={[{ links: navbarLinks }]}/>}
       {sidebar && <div className="sidebar-backdrop" onClick={sidebarHandle}></div>}
       <div className={conclass('wrapper-main', sidebarOpen && 'sidebar-open')}>
-        <Nav sidebar={sidebar} isSidebarOpen={sidebarOpen} onToggleSidebar={sidebarHandle} brand="Random Korone Clips" links={navbarLinks}/>
+        <Nav sidebar={sidebar} isSidebarOpen={sidebarOpen} onToggleSidebar={sidebarHandle} brand="" links={navbarLinks}/>
         <main className="pt-18 bg-gray-100">{props.children}</main>
       </div>
     </div>

@@ -28,6 +28,42 @@ class Firebase {
     this.storage = app.storage(storageUrl);
   }
 
+  public getSortLimit(collection: string, orderKey: string, limit: number = 0, direction: 'asc' | 'desc' = 'desc') {
+    return new Promise(async (resolve, reject) => {
+      let data: any = [];
+      
+      await this.db.collection(collection).orderBy(orderKey, direction).limit(limit).get()
+      .then((snapshot) => {
+        snapshot.forEach(doc => {
+          data.push({
+            id: doc.id,
+            data: doc.data()
+          });
+        });
+        resolve(data);
+      })
+      .catch(reject);
+    });
+  }
+
+  public getSort(collection: string, orderKey: string, direction: 'asc' | 'desc' = 'desc') {
+    return new Promise(async (resolve, reject) => {
+      let data: any = [];
+      
+      await this.db.collection(collection).orderBy(orderKey, direction).get()
+      .then((snapshot) => {
+        snapshot.forEach(doc => {
+          data.push({
+            id: doc.id,
+            data: doc.data()
+          });
+        });
+        resolve(data);
+      })
+      .catch(reject);
+    });
+  }
+
   public getWhere(collection: string, where?: [string, firebase.firestore.WhereFilterOp, any]) {
     return new Promise(async (resolve, reject) => {
       let data: any = [];

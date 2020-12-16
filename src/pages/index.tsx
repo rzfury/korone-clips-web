@@ -6,10 +6,10 @@ import Card from "../components/card/card";
 import Layout from "../layout/layout";
 import http from "../services/http";
 
-import styles from "../styles/pages/index.module.css";
+import Button from "../components/button";
 import conclass from "../utility/conclass";
 import formatClock from "../utility/formatClock";
-import Button from "../components/button";
+import styles from "../styles/pages/index.module.css";
 
 export default class Index extends React.Component<any, any> {
   elVideoPlayer = React.createRef<HTMLVideoElement>();
@@ -21,6 +21,9 @@ export default class Index extends React.Component<any, any> {
     this.state = {
       liveStatus: {},
       clips: [],
+      isLoadingClips: false,
+      currentPage: 1,
+      totalClips: 0,
       playVideoOverlay: false
     }
   }
@@ -30,13 +33,17 @@ export default class Index extends React.Component<any, any> {
     this.getLiveStatus();
   }
 
-  async loadClipList() {
-    await http.get('/api/clips')
+  async loadClipList(page: number = 1) {
+    this.setState({ isLoadingClips: true });
+    await http.get(`/api/clips?sort=desc&page=${page}`)
       .then((res: any) => {
-        this.setState({ clips: res });
+        this.setState({ clips: res.data, currentPage: page, totalClips: res.total });
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        this.setState({ isLoadingClips: false });
       })
   }
 
@@ -50,6 +57,14 @@ export default class Index extends React.Component<any, any> {
       });
   }
 
+  handleLoadMore = () => {
+    this.loadClipList(this.state.currentPage + 1);
+  }
+
+  handleDownload = (url: string) => {
+    window.location.href = url;
+  }
+
   onPlayVideo = async (url: string) => {
     await this.setState({
       playVideoOverlay: true
@@ -58,10 +73,6 @@ export default class Index extends React.Component<any, any> {
     this.elVideoSource.current.src = url;
     this.elVideoPlayer.current.load();
     this.elVideoPlayer.current.play();
-  }
-
-  handleDownload = (url: string) => {
-    window.location.href = url;
   }
 
   renderClipList = () => {
@@ -77,7 +88,7 @@ export default class Index extends React.Component<any, any> {
       <div className="w-full sm:w-1/4 p-2">
         <Card shadow>
           <a className="cursor-pointer" onClick={() => this.onPlayVideo(item.data?.fileUrl)}>            
-            <Image className="z-10" src="/img/temp/GSwv15Nd8Ng.jpg" width="1280" height="720" />
+            <Image src="/img/temp/GSwv15Nd8Ng.jpg" width="1280" height="720" />
           </a>
           <Card.Body className="py-1 pr-2 h-fit">
             <div className="flex w-full justify-between">
@@ -123,6 +134,9 @@ export default class Index extends React.Component<any, any> {
               <div className="flex flex-wrap">
                 {this.renderClipList()}
               </div>
+              <div className={conclass(this.isLoadedAll() ? 'hidden' : 'flex justify-center mt-4')}>
+                <Button onClick={this.handleLoadMore} disabled={this.state.isLoadingClips}>More</Button>
+              </div>
             </Card.Body>
           </Card>
         </div>
@@ -134,5 +148,9 @@ export default class Index extends React.Component<any, any> {
         </div>
       </Layout>
     )
+  }
+
+  isLoadedAll = () => {
+    return this.state.clips.length >= this.state.totalClips;
   }
 }
