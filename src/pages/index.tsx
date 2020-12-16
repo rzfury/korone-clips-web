@@ -65,6 +65,11 @@ export default class Index extends React.Component<any, any> {
     window.location.href = url;
   }
 
+  onOverlayClose = () => {
+    this.setState({ playVideoOverlay: false });
+    this.elVideoPlayer.current.pause();
+  }
+
   onPlayVideo = async (url: string) => {
     await this.setState({
       playVideoOverlay: true
@@ -87,18 +92,26 @@ export default class Index extends React.Component<any, any> {
     return (
       <div className="w-full sm:w-1/4 p-2">
         <Card shadow>
-          <a className="cursor-pointer" onClick={() => this.onPlayVideo(item.data?.fileUrl)}>            
-            <Image src="/img/temp/GSwv15Nd8Ng.jpg" width="1280" height="720" />
+          <a className="cursor-pointer" onClick={() => this.onPlayVideo(item.data?.fileUrl)}>
+            <div className="relative">
+              <div className="absolute flex items-center justify-center w-full h-full z-10 opacity-0 hover:opacity-100" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="80" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <Image src="/img/temp/GSwv15Nd8Ng.jpg" width="1280" height="720" />
+            </div>
           </a>
-          <Card.Body className="py-1 pr-2 h-fit">
+          <Card.Body className="pt-1 pb-2 pr-2 h-fit">
             <div className="flex w-full justify-between">
               <div className="w-3/4">
                 <div className="block text-gray-400 text-xs">[ {formatClock(item.data?.clipTimestamp)} - {formatClock(item.data?.clipTimestamp + 5)} ]</div>
                 <div className="truncate text-md">{item.data?.stream_title}</div>
               </div>
-              <div className="">
-                <Button onClick={() => this.handleDownload(item.data?.fileUrl)} rounded className="h-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" height="18" viewBox="0 0 24 24" stroke="currentColor">
+              <div>
+                <Button onClick={() => this.handleDownload(item.data?.fileUrl)} rounded className="h-full" title="Download">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
                 </Button>
@@ -130,20 +143,23 @@ export default class Index extends React.Component<any, any> {
 
           <Card shadow className="bg-white">
             <Card.Body>
-              <div className="mb-1 text-xl">Latest Clips</div>
+              <div className="flex items-center mb-1 text-xl">Latest Clips</div>
               <div className="flex flex-wrap">
                 {this.renderClipList()}
               </div>
               <div className={conclass(this.isLoadedAll() ? 'hidden' : 'flex justify-center mt-4')}>
-                <Button onClick={this.handleLoadMore} disabled={this.state.isLoadingClips}>More</Button>
+                <Button rounded onClick={this.handleLoadMore} disabled={this.state.isLoadingClips}>
+                  <span className={this.state.isLoadingClips && 'hidden'}>More</span>
+                  <img className={!this.state.isLoadingClips && 'hidden'} src="/svg/Ellipsis-1s-200px.svg" height="24" />
+                </Button>
               </div>
             </Card.Body>
           </Card>
         </div>
         <div className={conclass(styles.overlayVideo, this.state.playVideoOverlay && styles.show)}>
-          <div className={this.state.playVideoOverlay ? 'fixed inset-0' : 'hidden'} onClick={() => this.setState({ playVideoOverlay: false })}></div>
+          <div className={this.state.playVideoOverlay ? 'fixed inset-0' : 'hidden'} onClick={this.onOverlayClose}></div>
           <video ref={this.elVideoPlayer} controls className={styles.video}>
-            <source ref={this.elVideoSource} src={this.state.playVideoUrl} type="video/mp4"/>
+            <source ref={this.elVideoSource} src={this.state.playVideoUrl} type="video/mp4" />
           </video>
         </div>
       </Layout>

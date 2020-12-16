@@ -8,6 +8,7 @@
 declare namespace RazorWindProps {
 
   interface Layout extends React.HTMLAttributes<HTMLElement> {
+    title?: string;
     sidebar?: boolean;
   }
 
@@ -165,8 +166,7 @@ declare namespace RazorWindProps {
       onToggleSidebar?: () => void;
     }
 
-    interface Brand {
-      text: string | undefined;
+    interface Brand extends React.HTMLAttributes<HTMLAnchorElement> {
       show?: boolean;
     }
 
@@ -175,6 +175,7 @@ declare namespace RazorWindProps {
       href?: string;
       label: string;
       mobile?: boolean;
+      target?: '_blank' | '_self' | '_parent' | '_top';
     }
 
     interface Dropdown {

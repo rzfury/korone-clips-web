@@ -24,7 +24,7 @@ class SideBar extends React.Component<RazorWindProps.Sidebar, any> {
         <div ref={dropdown} className="sidebar-dropdown">
           {link.dropdown.map(
             item => (
-              <a href={`${!item.noParent ? link.href : ''}${item.href}`} className="sidebar-link-item">{item.label}</a>
+              <a target={link.target} href={`${!item.noParent ? link.href : ''}${item.href}`} className="sidebar-link-item">{item.label}</a>
             )
           )}
         </div>
@@ -38,11 +38,12 @@ class SideBar extends React.Component<RazorWindProps.Sidebar, any> {
         {this.props.links?.map(
           item => (
             <div className="py-2">
+              {item.label && <div className="pl-4 pb-2 text-sm text-white font-thin">{item.label}</div>}
               {item.links.map(
                 link => link.dropdown
                   ? this.renderNavDropdown(link)
                   : <div className="block">
-                    <a href={link.href} className="sidebar-link-item">{link.label}</a>
+                    <a target={link.target} href={link.href} className="sidebar-link-item">{link.label}</a>
                   </div>
               )}
             </div>
@@ -56,7 +57,7 @@ class SideBar extends React.Component<RazorWindProps.Sidebar, any> {
     return (
       <div className={conclass('layout-sidebar', this.props.show && 'open')}>
         <div className="sidebar-nav-head">
-          <NavBrand text={this.props.nav?.brand} show={this.props.show} />
+          <NavBrand show={this.props.show}>{this.props.nav?.brand}</NavBrand>
         </div>
         {this.renderNavigation()}
       </div>

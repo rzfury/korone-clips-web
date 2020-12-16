@@ -15,7 +15,7 @@ function Nav(props: RazorWindProps.Navigation.Nav) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <NavBrand text={props.brand} show={!props.isSidebarOpen}/>
+        <NavBrand show={!props.isSidebarOpen}>{props.brand}</NavBrand>
         <ul className={conclass('desktop-navbar', props.sidebar && 'w-0 overflow-hidden')}>
           {props.links.map(function (link) {
             return (

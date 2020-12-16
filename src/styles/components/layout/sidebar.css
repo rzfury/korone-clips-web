@@ -1,7 +1,7 @@
 .layout-sidebar {
   @apply fixed block h-screen overflow-hidden z-60;
   box-shadow: -4px 0px 10px 5px rgba(0,0,0,0.3);
-  background-color: rgb(221, 167, 158);
+  background-color: rgb(199, 152, 145);
   width: 85vw;
   max-width: 0px;
   transition: max-width cubic-bezier(.26,.09,.29,1) .5s;
@@ -23,18 +23,20 @@
 .sidebar-nav-head {
   @apply flex w-full items-center justify-center py-4 text-black shadow-md;
   background-color: rgb(205, 150, 141);
+  min-height: 64px;
 }
 
 .sidebar-nav > :not(:first-child) {
-  @apply border-t border-blue-400
+  @apply border-t;
+  border-color: rgb(236, 199, 191);
 }
 
 .sidebar-link-item {
-  @apply block px-4 py-2 text-black;
+  @apply block px-4 py-2 text-white;
 }
 
 .sidebar-link-item:hover {
-  background-color: rgb(236, 199, 191);
+  background-color: rgb(218, 176, 169);
 }
 
 .sidebar-dropdown {
@@ -56,6 +58,6 @@
   }
 
   .sidebar-nav-head {
-    min-height: 72px;
+    min-height: 64px;
   }
 }
