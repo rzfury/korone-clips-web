@@ -1,3 +1,7 @@
 require('dotenv').config();
 
-module.exports = {}
+module.exports = {
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
+  }
+};
