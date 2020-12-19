@@ -100,7 +100,7 @@ export default class Index extends React.Component<any, any> {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <Image src="/img/temp/GSwv15Nd8Ng.jpg" width="1280" height="720" />
+              <Image src={this.getThumbnail(item)} width="1280" height="720" />
             </div>
           </a>
           <Card.Body className="pt-1 pb-2 pr-2 h-fit">
@@ -164,6 +164,19 @@ export default class Index extends React.Component<any, any> {
         </div>
       </Layout>
     )
+  }
+
+  getThumbnail = (item: any) => {
+    if(item) {
+      if(item.data) {
+        if(typeof (item.data.thumbnail) === 'string') {
+          if(item.data.thumbnail.length > 0) {
+            return item.data.thumbnail;
+          }
+        }
+      }
+    }
+    return '/img/temp/GSwv15Nd8Ng.jpg';
   }
 
   isLoadedAll = () => {
