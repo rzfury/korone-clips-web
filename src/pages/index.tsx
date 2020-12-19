@@ -134,7 +134,7 @@ export default class Index extends React.Component<any, any> {
                   <span className="inline-block w-3 h-3 rounded-full" style={{ backgroundColor: 'red' }}>&nbsp;</span>
                   <span className="ml-2 text-xl">LIVE NOW</span>
                 </div>
-                <a href={`https://www.youtube.com/watch?v=${this.state.liveStatus?.yt_video_key}`}>
+                <a target="_blank" href={`https://www.youtube.com/watch?v=${this.state.liveStatus?.yt_video_key}`}>
                   <span className="ml-2 text-xl text-blue-500">{this.state.liveStatus?.title}</span>
                 </a>
               </div>
