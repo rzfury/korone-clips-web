@@ -29,10 +29,11 @@ export default function Index() {
           <Card.Body>
             <div className="text-2xl font-semibold">Korone Clipper Bot</div>
             <div className="pt-4">
-              <P><span className="line-through">Bot Repository: <A href="">https://</A></span> Not ready.</P>
+              <P>Bot Repository: <A target="_blank" href="https://github.com/rzfury/korone-clipper-bot">https://github.com/rzfury/korone-clipper-bot</A></P>
               <P>This is a Facebook Page Bot Project, a program that automatically post something to a Facebook Page with a given intervals. (e.g. once every hour)</P>
               <P>This bot post a random clip video from a random video on <A href="https://www.youtube.com/channel/UChAnqc_AY5_I3Px5dig3X1Q?sub_confirmation=1">Korone Inugami's Channel</A> to a <A href="https://web.facebook.com/randomKoroneClips">Facebook Page</A> every hour.</P>
               <P>This bot uses <A href="https://nodejs.org/en/">NodeJS</A> as it's backend, along with <A href="https://firebase.google.com/">Firebase</A> for the database and storage. The backend is hosted on <A href="https://www.heroku.com/"></A>heroku.</P>
+              <P>(P.S.: The bot actually can generate clip from any youtube channel. This project specify the bot to generate clip from Korone's channel)</P>
             </div>
           </Card.Body>
         </Card>
