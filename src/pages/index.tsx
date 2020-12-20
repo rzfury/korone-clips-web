@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import _ from 'lodash';
+import { formatDistance } from "date-fns";
 
 import Card from "../components/card/card";
 import Layout from "../layout/layout";
@@ -19,7 +20,7 @@ export default class Index extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      liveStatus: {},
+      streamData: {},
       clips: [],
       isLoadingClips: false,
       currentPage: 1,
@@ -50,7 +51,7 @@ export default class Index extends React.Component<any, any> {
   async getLiveStatus() {
     await http.get('/api/live')
       .then((res) => {
-        this.setState({ liveStatus: res });
+        this.setState({ streamData: res });
       })
       .catch((err) => {
         console.error(err);
@@ -78,6 +79,55 @@ export default class Index extends React.Component<any, any> {
     this.elVideoSource.current.src = url;
     this.elVideoPlayer.current.load();
     this.elVideoPlayer.current.play();
+  }
+
+  renderStreamLiveCard = () => {
+    const { streamData } = this.state;
+    const live = streamData.live ? streamData.live[0] : null;
+    const upcoming = streamData.upcoming ? streamData.upcoming[0] : null;
+
+    if (live) {
+      return (
+        <Card shadow className={conclass('bg-white mb-4')}>
+          <Card.Body>
+            <div className="block sm:flex">
+              <div className="flex items-center mb-2 sm:mb-0">
+                <span className="inline-block w-3 h-3 rounded-full" style={{ backgroundColor: 'red' }}>&nbsp;</span>
+                <span className="ml-2 text-xl">LIVE NOW</span>
+              </div>
+              <a target="_blank" href={`https://www.youtube.com/watch?v=${live.yt_video_key}`}>
+                <span className="ml-2 text-xl text-blue-500">{live.title}</span>
+              </a>
+            </div>
+          </Card.Body>
+        </Card>
+      );
+    }
+    else if (upcoming) {
+      const date = formatDistance(new Date(), new Date(upcoming.live_schedule));
+
+      return (
+        <Card shadow className={conclass('bg-white mb-4')}>
+          <Card.Body>
+            <div className="block">
+              <small className="text-gray-400">Live in {date}</small>
+            </div>
+            <div className="block sm:flex">
+              <div className="flex items-center mb-2 sm:mb-0">
+                <span className="inline-block w-3 h-3 rounded-full bg-gray-400">&nbsp;</span>
+                <span className="ml-2 text-xl">UPCOMING</span>
+              </div>
+              <a target="_blank" href={`https://www.youtube.com/watch?v=${upcoming.yt_video_key}`}>
+                <span className="ml-2 text-xl text-blue-500">{upcoming.title}</span>
+              </a>
+            </div>
+          </Card.Body>
+        </Card>
+      );
+    }
+    else {
+      return <></>;
+    }
   }
 
   renderClipList = () => {
@@ -127,20 +177,7 @@ export default class Index extends React.Component<any, any> {
     return (
       <Layout>
         <div className={styles.main}>
-          <Card shadow className={conclass('bg-white mb-4', _.isEmpty(this.state.liveStatus) && 'hidden')}>
-            <Card.Body>
-              <div className="block sm:flex">
-                <div className="flex items-center mb-2 sm:mb-0">
-                  <span className="inline-block w-3 h-3 rounded-full" style={{ backgroundColor: 'red' }}>&nbsp;</span>
-                  <span className="ml-2 text-xl">LIVE NOW</span>
-                </div>
-                <a target="_blank" href={`https://www.youtube.com/watch?v=${this.state.liveStatus?.yt_video_key}`}>
-                  <span className="ml-2 text-xl text-blue-500">{this.state.liveStatus?.title}</span>
-                </a>
-              </div>
-            </Card.Body>
-          </Card>
-
+          {this.renderStreamLiveCard()}
           <Card shadow className="bg-white">
             <Card.Body>
               <div className="flex items-center mb-1 text-xl">Latest Clips</div>
@@ -167,10 +204,10 @@ export default class Index extends React.Component<any, any> {
   }
 
   getThumbnail = (item: any) => {
-    if(item) {
-      if(item.data) {
-        if(typeof (item.data.thumbnail) === 'string') {
-          if(item.data.thumbnail.length > 0) {
+    if (item) {
+      if (item.data) {
+        if (typeof (item.data.thumbnail) === 'string') {
+          if (item.data.thumbnail.length > 0) {
             return item.data.thumbnail;
           }
         }

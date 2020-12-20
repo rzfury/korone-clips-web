@@ -38,12 +38,12 @@ class SideBar extends React.Component<RazorWindProps.Sidebar, any> {
         {this.props.links?.map(
           item => (
             <div className="py-2">
-              {item.label && <div className="pl-4 pb-2 text-sm text-white font-thin">{item.label}</div>}
+              {item.label && <div className="pl-4 pb-2 text-sm text-white font-thin whitespace-nowrap">{item.label}</div>}
               {item.links.map(
                 link => link.dropdown
                   ? this.renderNavDropdown(link)
                   : <div className="block">
-                    <a target={link.target} href={link.href} className="sidebar-link-item">{link.label}</a>
+                    <a target={link.target} href={link.href} className="sidebar-link-item whitespace-nowrap">{link.label}</a>
                   </div>
               )}
             </div>

@@ -43,7 +43,7 @@ export default function Index() {
             <div className="pt-4">
               <P>Website Repository: <A target="_blank" href="https://github.com/rzfury/korone-clips-web">https://github.com/rzfury/korone-clips-web</A></P>
               <P>This is a website for playing and downloading clips that already been posted on the Facebook Page.</P>
-              <P>This website also show a card if Korone is currently streaming.</P>
+              <P>This website also display a card if Korone is currently streaming or there's upcoming stream.</P>
               <P>This website uses <A href="https://nextjs.org/">NextJS</A> as development framework, <A href="https://tailwindcss.com/">Tailwind</A> as CSS Framework, Deployed with <A href="https://vercel.com/">Vercel</A>.</P>
             </div>
           </Card.Body>

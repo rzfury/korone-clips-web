@@ -5,7 +5,7 @@ export default class Index extends React.Component {
   render() {
     return (
       <Layout>
-          <div style={{ height: 1200 }}></div>
+        <div style={{ height: 1200 }}></div>
       </Layout>
     )
   }
