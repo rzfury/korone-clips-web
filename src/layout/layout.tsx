@@ -33,13 +33,14 @@ export default function Layout(props: RazorWindProps.Layout) {
       ]
     },
     {
+      label: "Korone Clipper Bot",
       links: [
         {
           label: 'About',
           href: '/about'
         },
         {
-          label: 'Facebook Bot Page',
+          label: 'Facebook Page',
           href: 'https://web.facebook.com/randomKoroneClips',
           target: '_blank'
         }
